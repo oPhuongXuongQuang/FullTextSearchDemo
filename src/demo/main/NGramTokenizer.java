@@ -12,8 +12,8 @@ public class NGramTokenizer {
 	}
 	
 	public List<String> getTerms(String string){
+		terms.add(string);
 		if(string.length() == 1){
-			terms.add(string);
 			return terms;
 		}
 		for (int i = 0; i + NGRAM - 1 < string.length(); i++) {

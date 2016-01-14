@@ -37,7 +37,7 @@ public class Index {
 	public void saveIndexToFile(){
 		ObjectOutputStream s = null;
 		try {
-			FileOutputStream f = new FileOutputStream(new File(INDEX_PATH));
+			FileOutputStream f = new FileOutputStream(new File(INDEX_PATH), false);
 	        s = new ObjectOutputStream(f);
 	        s.writeObject(indexTable);
 		} catch (FileNotFoundException e) {
@@ -48,6 +48,7 @@ public class Index {
 			e.printStackTrace();
 		} finally {
 			try {
+				s.flush();
 				s.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -57,7 +58,6 @@ public class Index {
 	}
 	
 	public HashMap<String, List<String>> loadIndexFromFile(){
-		HashMap<String, List<String>> indexTable = new HashMap<>();
 		ObjectInputStream s = null;
 		try {
 			FileInputStream f = new FileInputStream(new File(INDEX_PATH));
