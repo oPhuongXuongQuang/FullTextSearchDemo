@@ -15,8 +15,9 @@ public class Indexer {
 
 	public static void indexFile(File document, boolean NGRAM_ENABLE) {
 		System.out.println("Indexing for: " + document.getAbsolutePath());
+		BufferedReader br = null;
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(document));
+			br = new BufferedReader(new FileReader(document));
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				StringTokenizer st = new StringTokenizer(line);
@@ -39,6 +40,13 @@ public class Indexer {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
