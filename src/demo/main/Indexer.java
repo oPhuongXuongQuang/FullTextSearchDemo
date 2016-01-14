@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Indexer {
-	public static final String RESOURCE_PATH = "./resource";
+	public static final String RESOURCE_PATH = "src/demo/resource";
 
 	public static void startIndex(boolean NGRAM_ENABLE) throws IOException {
 		Index index = new Index();
@@ -17,7 +17,7 @@ public class Indexer {
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File document : directoryListing) {
-				System.out.println("Indexing for: " + document.getName());
+				System.out.println("Indexing for: " + document.getAbsolutePath());
 				BufferedReader br = new BufferedReader(new FileReader(document));
 				String line = null;
 				while ((line = br.readLine()) != null) {
@@ -37,12 +37,13 @@ public class Indexer {
 				}
 			}
 		}
+		index.saveIndexToFile();
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("===Full Text Search Console Demo===");
+		System.out.println("===Full Text Search Console Demo===\n");
 		System.out.print("Enable for NGRAM (y/n)? ");
 		try {
 			String ans = bReader.readLine();
