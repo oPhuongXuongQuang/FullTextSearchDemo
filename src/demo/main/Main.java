@@ -11,12 +11,15 @@ public class Main {
 		BufferedReader bReader = new BufferedReader(new InputStreamReader(
 				System.in));
 		System.out.println("===Full Text Search Console Demo===\n");
-		System.out.print("What are you searching for? Enter text: ");
+
 		try {
-			String value = bReader.readLine();
-			Searcher searcher = new Searcher();
-			String result = searcher.search(value);
-			System.out.println("\nYour search result: " + result);
+			while (true) {
+				System.out.print("What are you searching for? Enter text: ");
+				String value = bReader.readLine();
+				Searcher searcher = new Searcher();
+				String result = searcher.search(value.toLowerCase());
+				System.out.println("Your search result: " + result + "\n");
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			main(args);

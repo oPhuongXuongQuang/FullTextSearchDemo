@@ -30,7 +30,7 @@ public class Searcher {
 		for (int i = 0; i < listDocs.size() - 1; i++) {
 			Set<String> set1 = listDocs.get(i);
 			Set<String> set2 = listDocs.get(i + 1);
-			set1.retainAll(set2);
+			set1.addAll(set2);
 			result = set1;
 		}
 		return result;
