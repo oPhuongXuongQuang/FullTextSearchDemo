@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Index {
 	public static final String INDEX_PATH = "index/indexes.dat";
-	public HashMap<String, List<String>> indexTable;
+	public HashMap<String, List<Result>> indexTable;
 	
 	public Index() {
 		if(!Files.exists(Paths.get(INDEX_PATH))){
@@ -24,11 +24,18 @@ public class Index {
 	}
 
 	public void setIndex(String term, String docID) {
-		List<String> docs = this.indexTable.get(term);
+		List<Result> docs = this.indexTable.get(term);
 		if(docs == null){
-			docs = new ArrayList<String>();
+			docs = new ArrayList<Result>();
 		}
-		docs.add(docID);
+		int itemIndex = docs.indexOf(docID);
+	    if (itemIndex != -1) {
+	    	Result currentResult = docs.get(itemIndex);
+	    	currentResult.updateRank();
+	    	docs.set(itemIndex, currentResult);
+	    } else {
+	    	docs.add(new Result(docID));
+	    }
 		this.indexTable.put(term, docs);
 	}
 	
@@ -53,12 +60,12 @@ public class Index {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public HashMap<String, List<String>> loadIndexFromFile(){
+	public HashMap<String, List<Result>> loadIndexFromFile(){
 		ObjectInputStream s = null;
 		try {
 			FileInputStream f = new FileInputStream(new File(INDEX_PATH));
 		    s = new ObjectInputStream(f);
-		    indexTable = (HashMap<String, List<String>>) s.readObject();
+		    indexTable = (HashMap<String, List<Result>>) s.readObject();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
