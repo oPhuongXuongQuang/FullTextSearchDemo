@@ -66,7 +66,7 @@ public class Searcher {
 			List<Result> set2 = listDocs.get(i + 1);
 			set1.addAll(set2);
 
-			result = set1;
+			result.addAll(set1);
 		}
 		return result;
 	}
