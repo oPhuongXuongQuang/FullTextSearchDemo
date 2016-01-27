@@ -12,10 +12,10 @@ public class NGramTokenizer {
 	}
 
 	public List<String> getTerms(String string) {
-		terms.add(string.toLowerCase());
-//		if (!string.equals(string.toLowerCase())) {
-//			terms.add(string.toLowerCase());
-//		}
+		terms.add(string);
+		if (!string.equals(string.toLowerCase())) {
+			terms.add(string.toLowerCase());
+		}
 		if (string.length() == 1) {
 			return terms;
 		}

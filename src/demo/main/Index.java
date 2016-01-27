@@ -28,12 +28,17 @@ public class Index {
 		if(docs == null){
 			docs = new ArrayList<Result>();
 		}
-		int itemIndex = docs.indexOf(docID);
-	    if (itemIndex != -1) {
-	    	Result currentResult = docs.get(itemIndex);
-	    	currentResult.updateRank();
-	    	docs.set(itemIndex, currentResult);
-	    } else {
+		boolean termAlreadyExistInDoc = false;
+		for (int i = 0; i < docs.size(); i++) {
+			Result result = docs.get(i);
+			if(result.docName.equals(docID)){
+				termAlreadyExistInDoc = true;
+				result.updateRank();
+				docs.set(i, result);
+				break;
+			}
+		}
+	    if (!termAlreadyExistInDoc) {
 	    	docs.add(new Result(docID));
 	    }
 		this.indexTable.put(term, docs);
